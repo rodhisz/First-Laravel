@@ -54,7 +54,7 @@
                         </span>
                         <div>
                             <h5 class="mb-1"><b><a href="#">{{$userCount}} <small>User</small></a></b></h5>
-                            <small class="text-muted">163 user aktif</small>
+                            <small class="text-muted">{{$userCount}} Online</small>
                         </div>
                     </div>
                 </div>

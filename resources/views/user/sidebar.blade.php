@@ -9,7 +9,7 @@
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span>
                             {{ Auth::user()->name}}
-                            <span class="user-level">Administrator</span>
+                            <span class="user-level">{{ Auth::user()->role}}</span>
                             <span class="caret"></span>
                         </span>
                     </a>
@@ -18,7 +18,7 @@
                     <div class="collapse in" id="collapseExample">
                         <ul class="nav">
                             <li>
-                                <a href="myprofile.html">
+                                <a href="{{route('profile.show', Auth::user()->username)}}">
                                     <span class="link-collapse">My Profile</span>
                                 </a>
                             </li>

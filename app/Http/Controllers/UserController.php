@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $userCount = User::all()->count();
+        $userCount = User::where('role','User')->count();
         return view('user.content.index',[
             'userCount' => $userCount
         ]);
@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('user.content.show');
     }
 
     /**
