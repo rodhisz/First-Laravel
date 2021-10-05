@@ -62,9 +62,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($username)
     {
-        //
+        $title = "Edit Profile";
+        $user = User::where('username', $username)->first();
+        return view('user.content.edit',[
+            'user' => $user,
+            "title" => $title,
+        ]);
     }
 
     /**
@@ -74,9 +79,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $username)
     {
-        //
+        // return ddd($request);
+        $title = "My Profile";
+
+        $user = User::where('username', $username)->first();
+        $user->update($request->all());
+
+        return view('user.content.show',[
+            'user' => $user,
+            "title" => $title,
+        ]);
     }
 
     /**

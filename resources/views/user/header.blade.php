@@ -71,7 +71,7 @@
                             <li>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{route('profile.show', Auth::user()->username)}}">My Profile</a>
-                                <a class="dropdown-item" href="#">Edit Profile</a>
+                                <a class="dropdown-item" href="{{route('profile.edit', Auth::user()->username)}}">Edit Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Pengaturan Akun</a>
                                 <div class="dropdown-divider"></div>
