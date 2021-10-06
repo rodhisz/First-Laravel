@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-body">
 
-                        <form action="{{route('profile.update', Auth::user()->username)}}" method="post">
+                        <form action="{{route('profile.update', Auth::user()->username)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -90,11 +90,15 @@
                                             <label>Photo :</label>
                                         </div>
                                         <div class="col-lg-4 col-md-9 col-sm-8">
-                                            @if (Auth::user()->name == '')
                                             <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="image profile" class="avatar-img rounded">
-                                            @elseif (Auth::user()->name != '')
-                                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name}}"   alt="image profile" class="avatar-img rounded">
-                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-show-notify row">
+                                        <div class="col-lg-3 col-md-3 col-sm-4 text-right">
+                                        </div>
+                                        <div class="col-lg-4 col-md-9 col-sm-8">
+                                            <input type="file" name="image">
                                         </div>
                                     </div>
 
@@ -134,7 +138,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-9 col-sm-12">
                                     <a href="{{route('profile.edit', Auth::user()->username)}}"></a>
-                                    <button id="displayNotif" type="sudmit" class="btn btn-primary">Save Change</button>
+                                    <button id="displayNotif" type="submit" class="btn btn-primary"  >Save Change</button>
                                 </div>
                             </div>
                         </div>

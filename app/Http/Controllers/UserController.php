@@ -85,7 +85,14 @@ class UserController extends Controller
         $title = "My Profile";
 
         $user = User::where('username', $username)->first();
-        $user->update($request->all());
+        $user->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'number_phone' => $request->number_phone,
+            'address' => $request->address,
+            'image' => $request->file('image')->store('image.user'),
+        ]);
 
         return view('user.content.show',[
             'user' => $user,

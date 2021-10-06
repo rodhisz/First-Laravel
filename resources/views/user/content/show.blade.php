@@ -86,10 +86,10 @@
                                             <label>Photo :</label>
                                         </div>
                                         <div class="col-lg-4 col-md-9 col-sm-8">
-                                            @if (Auth::user()->name == '')
-                                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="image profile" class="avatar-img rounded">
-                                            @elseif (Auth::user()->name != '')
-                                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name}}"   alt="image profile" class="avatar-img rounded">
+                                            @if ($user->image != '')
+                                            <img src="{{url('storage', $user->image)}}" alt="" class="avatar-img rounded">
+                                            @else
+                                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="..." class="avatar-img rounded">
                                             @endif
                                         </div>
                                     </div>
