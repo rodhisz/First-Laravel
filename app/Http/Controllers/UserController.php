@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class UserController extends Controller
 {
@@ -52,7 +55,7 @@ class UserController extends Controller
     {
         $user = User::where('username', $username)->first();
         return view('user.content.show',[
-            'user' => $user
+            'user'      => $user
         ]);
     }
 
@@ -67,9 +70,12 @@ class UserController extends Controller
         $title = "Edit Profile";
         $user = User::where('username', $username)->first();
         return view('user.content.edit',[
-            'user' => $user,
-            "title" => $title,
+            'user'      => $user,
+            "title"     => $title,
         ]);
+
+        return redirect()->route('user.content')->with(['success' => 'data berhasil terupdate']);
+
     }
 
     /**
@@ -84,20 +90,39 @@ class UserController extends Controller
         // return ddd($request);
         $title = "My Profile";
 
-        $user = User::where('username', $username)->first();
-        $user->update([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'number_phone' => $request->number_phone,
-            'address' => $request->address,
-            'image' => $request->file('image')->store('image.user'),
-        ]);
+        if(empty($request->file('image'))){
+            $user = User::where('username', $username)->first();
+            $user->update([
+            'name'          => $request->name,
+            'username'      => $request->username,
+            'email'         => $request->email,
+            'number_phone'  => $request->number_phone,
+            'address'       => $request->address,
+            ]);
+            return view('user.content.show',[
+                'user'      => $user,
+                'title'     => $title,
+            ]);
+        }
+        else{
+            $user = User::where('username', $username)->first();
+            Storage::delete($user->image);
+            $user->update([
+            'name'          => $request->name,
+            'username'      => $request->username,
+            'email'         => $request->email,
+            'number_phone'  => $request->number_phone,
+            'address'       => $request->address,
+            'image'         => $request->file('image')->store('image.user'),
+            ]);
+            return view('user.content.show',[
+                'user'      => $user,
+                'title'     => $title,
+            ]);
 
-        return view('user.content.show',[
-            'user' => $user,
-            "title" => $title,
-        ]);
+            return redirect()->route('user.content')->with(['success' => 'data berhasil terupdate']);
+        }
+
     }
 
     /**

@@ -90,7 +90,11 @@
                                             <label>Photo :</label>
                                         </div>
                                         <div class="col-lg-4 col-md-9 col-sm-8">
-                                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="image profile" class="avatar-img rounded">
+                                            @if ($user->image != '')
+                                            <img src="{{url('storage', $user->image)}}" alt="" class="avatar-img rounded">
+                                            @else
+                                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="..." class="avatar-img rounded">
+                                            @endif
                                         </div>
                                     </div>
 
@@ -138,7 +142,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-9 col-sm-12">
                                     <a href="{{route('profile.edit', Auth::user()->username)}}"></a>
-                                    <button id="displayNotif" type="submit" class="btn btn-primary"  >Save Change</button>
+                                    <button id="displayNotif" type="sudmit" class="btn btn-primary">Save Change</button>
                                 </div>
                             </div>
                         </div>
