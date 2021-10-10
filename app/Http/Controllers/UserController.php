@@ -11,6 +11,31 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
+    public function table()
+    {
+        $title = "List User";
+        $i = 1;
+        $user = User::all();
+        return view('user.content.table',[
+            'user' => $user,
+            'title' => $title,
+            'i' => $i,
+        ]);
+    }
+
+    public function Product()
+    {
+        $title = "List Product";
+        $i = 1;
+        $user = User::all();
+        return view('user.content.product',[
+            'user' => $user,
+            'title' => $title,
+            'i' => $i,
+        ]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -53,9 +78,11 @@ class UserController extends Controller
      */
     public function show($username)
     {
+        $title = "My Profile";
         $user = User::where('username', $username)->first();
         return view('user.content.show',[
-            'user'      => $user
+            'user'      => $user,
+            'title' => $title,
         ]);
     }
 

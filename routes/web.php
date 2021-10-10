@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/profile', UserController::class);
+Route::get('/change', [App\Http\Controllers\ChangePasswordController::class, 'change'])->name('change');
+Route::put('/update-pass', [App\Http\Controllers\ChangePasswordController::class, 'updatePass'])->name('updatePass');
+Route::get('/table', [App\Http\Controllers\UserController::class, 'table'])->name('table');
+Route::resource('/product', ProductController::class);

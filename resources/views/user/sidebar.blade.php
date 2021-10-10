@@ -32,6 +32,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{route('change')}}">
+                                    <span class="link-collapse">Change Password</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#settings">
                                     <span class="link-collapse">Settings</span>
                                 </a>
@@ -57,7 +62,7 @@
                     <div class="collapse" id="user">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="#">
+                                <a href="{{route('table')}}">
                                     <span class="sub-item">List User</span>
                                 </a>
                             </li>
@@ -74,7 +79,7 @@
                     <div class="collapse" id="produk">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="#">
+                                <a href="{{route('product.index')}}">
                                     <span class="sub-item">List Produk</span>
                                 </a>
                             </li>

@@ -73,7 +73,7 @@
                                 <a class="dropdown-item" href="{{route('profile.show', Auth::user()->username)}}">My Profile</a>
                                 <a class="dropdown-item" href="{{route('profile.edit', Auth::user()->username)}}">Edit Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Pengaturan Akun</a>
+                                <a class="dropdown-item" href="{{route('change')}}">Change Password</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
