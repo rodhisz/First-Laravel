@@ -14,17 +14,21 @@ class ChangePasswordController extends Controller
     {
         $title = "Change Password";
         return view('user.content.changepassword',[
-            "title"     => $title,
+            "title" => $title,
         ]);
     }
 
-    public function updatepass(ChangePasswordRequest $request)
+    public function UpdatePass(ChangePasswordRequest $request)
     {
         // return dd($request);
         $old_pass = auth()->user()->password;
+        $user_id = auth()->user()->id;
 
         if(Hash::check($request -> input('old_password'), $old_pass)){
-            return redirect()->back()->with('Succses', 'Password benar');
+            $user = User::find($user_id);
+            $user-> password = Hash::make($request->input('password'));
+            $user-> save();
+            return redirect()->back()->with('Success', 'Password benar');
 
         }else{
             return redirect()->back()->with('Failed', 'Password salah!');

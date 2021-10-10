@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-body">
 
-                        <form action="{{route('updatePass')}}" method="POST">
+                        <form action="{{route('update-pass')}}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -36,6 +36,17 @@
                             <div class="col-md-1"></div>
 
                             <div class="col-md-6">
+                                @if (Session::get('Success'))
+                                <div class="alert alert-success alert-dismissible fade-show" role="alert">
+                                        {{Session::get('Success')}}
+                                </div>
+                                @endif
+
+                                @if (Session::get('Failed'))
+                                <div class="alert alert-danger alert-dismissible fade-show" role="alert">
+                                        {{Session::get('Failed')}}
+                                </div>
+                                @endif
 
                                 <div class="form">
 
@@ -44,10 +55,10 @@
                                             <label for="#passNow">Current Password :</label>
                                         </div>
                                         <div class="col-lg-4 col-md-9 col-sm-8">
-                                            <input type="password" name="old-password" class="form-control input-fixed @error('old_password') is-invalid @enderror " style="margin-left: 35px;" id="exampleInputPassword1">
+                                            <input type="password" name="old_password" class="form-control input-fixed @error('old_password') is-invalid @enderror " style="margin-left: 35px;" id="passNow">
                                             @error('old_password')
                                                 <div class="invalid-feedback" style="margin-left: 35px; width: 300px !important;" role="alert">
-                                                    <strong> {{ $message }} </strong>
+                                                    <strong>{{$message}}</strong>
                                                 </div>
                                             @enderror
                                         </div>
@@ -58,10 +69,10 @@
                                             <label>New Password :</label>
                                         </div>
                                         <div class="col-lg-4 col-md-9 col-sm-8">
-                                            <input type="password" name="password" class="form-control input-fixed @error('password') is-invalid @enderror " style="margin-left: 35px;" id="exampleInputPassword1">
+                                            <input type="password" name="password" class="form-control input-fixed @error('password') is-invalid @enderror " style="margin-left: 35px;" id="passNow">
                                             @error('password')
                                                 <div class="invalid-feedback" style="margin-left: 35px; width: 300px !important;" role="alert">
-                                                    <strong> {{$message}} </strong>
+                                                    <strong>{{$message}}</strong>
                                                 </div>
                                             @enderror
                                         </div>
@@ -72,9 +83,8 @@
                                             <label>Confirm Password :</label>
                                         </div>
                                         <div class="col-lg-4 col-md-9 col-sm-8">
-                                            <input type="password" name="password_confirmation" class="@error('password_confirmation') is-invalid @enderror form-control input-fixed" style="margin-left: 35px;" id="exampleInputPassword1">
+                                            <input type="password" name="password_confirmation" class="@error('password_confirmation') is-invalid @enderror form-control input-fixed" style="margin-left: 35px;" id="passNow">
                                             @if($errors->any('password_confirmation'))
-
                                             <div class="invalid-feedback" style="margin-left: 35px; width: 300px !important;" role="alert">
                                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
                                             </div>
