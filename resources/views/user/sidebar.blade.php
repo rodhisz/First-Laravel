@@ -53,6 +53,7 @@
                     </span>
                     <h4 class="text-section">Pengaturan Akun</h4>
                 </li> -->
+                @if (Auth::user()->role == 'Admin')
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#user">
                         <i class="fas fa-users"></i>
@@ -86,7 +87,7 @@
                         </ul>
                     </div>
                 </li>
-
+                @else
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#pesanan">
                         <i class="fas fa-wallet"></i>
@@ -103,7 +104,7 @@
                         </ul>
                     </div>
                 </li>
-
+                @endif
             </ul>
         </div>
     </div>

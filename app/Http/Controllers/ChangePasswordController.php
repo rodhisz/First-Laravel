@@ -25,10 +25,16 @@ class ChangePasswordController extends Controller
         $user_id = auth()->user()->id;
 
         if(Hash::check($request -> input('old_password'), $old_pass)){
-            $user = User::find($user_id);
-            $user-> password = Hash::make($request->input('password'));
-            $user-> save();
-            return redirect()->back()->with('Success', 'Password benar');
+
+            if(Hash::check($request -> input('password'), $old_pass)){
+                return redirect()->back()->with('Failed', 'Password tidak boleh sama');
+
+            } else {
+                $user = User::find($user_id);
+                $user-> password = Hash::make($request->input('password'));
+                $user-> save();
+                return redirect()->back()->with('Success', 'Password telah diubah');
+            }
 
         }else{
             return redirect()->back()->with('Failed', 'Password salah!');

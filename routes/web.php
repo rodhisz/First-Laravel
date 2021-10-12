@@ -22,9 +22,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
+Route::resource('/profile', UserController::class)->middleware('auth');
+Route::resource('/product', ProductController::class)->middleware('auth');
+
+Route::get('/change', [App\Http\Controllers\ChangePasswordController::class, 'change'])->name('change')->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/profile', UserController::class);
-Route::get('/change', [App\Http\Controllers\ChangePasswordController::class, 'change'])->name('change');
-Route::put('/update-pass', [App\Http\Controllers\ChangePasswordController::class, 'updatePass'])->name('update-pass');
-Route::get('/table', [App\Http\Controllers\UserController::class, 'table'])->name('table');
-Route::resource('/product', ProductController::class);
+Route::get('/table', [App\Http\Controllers\UserController::class, 'table'])->name('table')->middleware('auth');
+Route::get('/index', [App\Http\Controllers\ProdukController::class, 'index'])->name('index');
+
+Route::put('/update-pass', [App\Http\Controllers\ChangePasswordController::class, 'updatePass'])->name('update-pass')->middleware('auth');
+
+

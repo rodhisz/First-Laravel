@@ -13,17 +13,17 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function product()
-    {
-        //
-    }
-
     public function index()
     {
+        if(auth()->user()->role !== 'Admin'){
+            echo "terlarang";
+            return;
+        }
+
         $title = "List Product";
         $i = 1;
         $product = product::all();
-        return view('user.content.product', [
+        return view('product.index', [
             'product' => $product,
             'title' => $title,
             'i' => $i,
@@ -46,9 +46,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        product::create([
+            'name_product' =>$request->name_product,
+            'price' =>$request->price,
+            'quantity' =>$request->quantity,
+            'weight' =>$request->weight,
+            'image' =>$request->file('image')->store('image-data'),
+        ]);
+
+        return redirect()->route('product.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -70,7 +80,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

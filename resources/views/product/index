@@ -1,0 +1,127 @@
+@extends('user.template')
+@section('content')
+
+<div class="col-md-12" style="margin-top: 80px" >
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex align-items-center">
+                <h4 class="card-title">{{$title}}</h4>
+                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+                    <i class="fa fa-plus"></i>
+                    Add Product
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Modal -->
+                <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title">
+                                    <span class="fw-mediumbold">
+                                    New</span>
+                                    <span class="fw-light">
+                                        Product
+                                    </span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="small">Create a new product</p>
+
+                                <form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group form-group-default">
+                                                <label>Product Name</label>
+                                                <input name="product_name" type="text" class="form-control" placeholder="fill product name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Price</label>
+                                                <input name="price" type="text" class="form-control" placeholder="fill price">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Quantity</label>
+                                                <input name="quantity" type="text" class="form-control" placeholder="fill quantity">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Weight</label>
+                                                <input name="weight" type="text" class="form-control" placeholder="fill weight">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Image</label>
+                                                <div class="form-group form-show-notify row">
+                                                    <div class="col-md-6">
+                                                        <input type="file" name="image">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer no-bd">
+                                    <button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="table-responsive">
+                <table id="add-row" class="display table table-striped table-hover" >
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($product as $product)
+                        <tr>
+                            <td>{{$i++}}</td>
+                            <td>{{$product->name_product}}</td>
+                            <td>Rp. {{number_format($product->price)}}</td>
+                            <td>{{$product->quantity}}Kg</td>
+                            <td>{{$product->weight}}</td>
+                            <td>{{$product->image}}</td>
+                            <td>
+                                <div class="form-button-action">
+                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
