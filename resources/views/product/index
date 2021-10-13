@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group form-group-default">
-                                                <label>Quantity</label>
+                                                <label>quantity</label>
                                                 <input name="quantity" type="text" class="form-control" placeholder="fill quantity">
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@
                             <th scope="col">No</th>
                             <th scope="col">Product Name</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
+                            <th scope="col">quantity</th>
                             <th scope="col">Weight</th>
                             <th scope="col">Image</th>
                             <th scope="col">Action</th>

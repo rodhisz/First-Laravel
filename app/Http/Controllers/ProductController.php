@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+use function GuzzleHttp\Promise\all;
 
 class ProductController extends Controller
 {
@@ -12,21 +16,21 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
         if(auth()->user()->role !== 'Admin'){
-            echo "terlarang";
-            return;
+            abort(403);
+            // echo "Terlarang";
+            // return;
         }
 
-        $title = "List Product";
         $i = 1;
-        $product = product::all();
-        return view('product.index', [
-            'product' => $product,
+        $title = "Product List";
+        $product = Product::all();
+        return view('product.index',[
             'title' => $title,
-            'i' => $i,
+            'product' => $product,
+            'i' => $i
         ]);
     }
 
@@ -37,7 +41,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -46,19 +50,27 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public function store(Request $request)
     {
-        // dd($request->all());
-        product::create([
-            'name_product' =>$request->name_product,
-            'price' =>$request->price,
-            'quantity' =>$request->quantity,
-            'weight' =>$request->weight,
-            'image' =>$request->file('image')->store('image-data'),
-        ]);
-
-        return redirect()->route('product.index')->with('success', 'Data berhasil ditambahkan');
+        if(empty($request -> file('image'))){
+            Product::create([
+                'name_product' => $request->name_product,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'weight' => $request->weight,
+            ]);
+            return redirect()->route('product.index');
+        }
+        else{
+            Product::create([
+                'name_product' => $request->name_product,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'weight' => $request->weight,
+                'image' => $request->file('image')->store('image-product'),
+            ]);
+            return redirect()->route('product.index');
+        }
     }
 
     /**
@@ -69,7 +81,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -90,9 +102,36 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $name_product)
     {
-        //
+        return dd($request->all);
+        $title = "Edit Product";
+
+        if (empty($request->file('image'))) {
+            $product = Product::where('name_product', $name_product)->first();
+            $product->update([
+                'name_product' => $request->name_product,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'weight' => $request->weight,
+            ]);
+        } else {
+            $product = Product::where('name_product', $name_product)->first();
+            Storage::delete($product->image);
+            $product->update([
+                'name_product' => $request->name_product,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'weight' => $request->weight,
+                'image' => $request->file('image')->store('image-product'),
+            ]);
+        }
+
+
+        return view('product.update', [
+            'product'  => $product,
+            'title' => $title
+        ]);
     }
 
     /**
@@ -103,6 +142,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product=Product::where('id', $id)->first();
+        Storage::delete($product->image);
+        Product::findOrFail($id)->delete();
+        return redirect() -> route('product.index')-> with('success','Data berhasil dihapus.');
     }
 }
