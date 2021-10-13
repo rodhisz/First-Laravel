@@ -50,6 +50,18 @@
 										</div>
 										<div class="form-group form-show-notify row">
 											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
+												<label>Status :</label>
+											</div>
+											<div class="col-lg-4 col-md-9 col-sm-8">
+												<select class="@error('status') is invalid @enderror form-control input-fixed" name="status" id="">
+                                                    <option value="">Select Status</option>
+                                                    <option value="Available" @if (old('status')) == "Available") selected="selected" @endif>Available</option>
+                                                    <option value="Unavailable" (old('status')) == "Unavailable" ? 'selected' : '' }}>Unavailable</option>
+                                                </select>
+											</div>
+										</div>
+										<div class="form-group form-show-notify row">
+											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
 												<label>Quantity :</label>
 											</div>
 											<div class="col-lg-4 col-md-9 col-sm-8">

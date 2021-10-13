@@ -36,9 +36,10 @@
                             <table id="add-row" class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>No</th>
                                         <th>Product Name</th>
                                         <th>Price</th>
+                                        <th>Status</th>
                                         <th>Quantity</th>
                                         <th>Weight</th>
                                         <th>Image</th>
@@ -52,18 +53,17 @@
                                         <td>{{$i++}}</td>
                                         <td>{{$p->name_product}}</td>
                                         <td>Rp. {{number_format($p->price)}}</td>
+                                        <td>{{($p->status)}}</td>
                                         <td>{{$p->quantity}}</td>
                                         <td>{{$p->weight}}</td>
-                                        <td><img src="{{url('storage/'.$p->image)}}" style="max-width: 100px" class="img-thumbnail" alt=""></td>
+                                        <td><img src="{{url('storage/'.$p->image)}}" style="max-width: 100px !important; border-radius:5px;" class="img-thumbnail" alt=""></td>
                                         <td>
                                             <div class="form-button-action">
-                                                <form action="{{route('product.update', $p->image)}}" method="post">
-                                                    @csrf
-                                                    @method('PASSWORD_DEFAULT')
-                                                        <button type="submit" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                </form>
+
+                                                <a href="{{route('product.edit',$p->id)}}" title="Edit" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Product">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+
                                                 <form action="{{route('product.destroy', $p->id)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')

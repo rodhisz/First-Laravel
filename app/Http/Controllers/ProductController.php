@@ -54,20 +54,22 @@ class ProductController extends Controller
     {
         if(empty($request -> file('image'))){
             Product::create([
-                'name_product' => $request->name_product,
-                'price' => $request->price,
-                'quantity' => $request->quantity,
-                'weight' => $request->weight,
+                'name_product'  => $request->name_product,
+                'price'         => $request->price,
+                'status'        => $request->status,
+                'quantity'      => $request->quantity,
+                'weight'        => $request->weight,
             ]);
             return redirect()->route('product.index');
         }
         else{
             Product::create([
-                'name_product' => $request->name_product,
-                'price' => $request->price,
-                'quantity' => $request->quantity,
-                'weight' => $request->weight,
-                'image' => $request->file('image')->store('image-product'),
+                'name_product'  => $request->name_product,
+                'price'         => $request->price,
+                'status'        => $request->status,
+                'quantity'      => $request->quantity,
+                'weight'        => $request->weight,
+                'image'         => $request->file('image')->store('image-product'),
             ]);
             return redirect()->route('product.index');
         }
@@ -92,7 +94,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-
+        $title = "Edit Product";
+        $product = Product::findOrFail($id);
+        return view('product.edit', compact('title', 'product'));
     }
 
     /**
@@ -102,36 +106,35 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $name_product)
+    public function update(Request $request, $id)
     {
-        return dd($request->all);
-        $title = "Edit Product";
+        // return dd($request);
 
-        if (empty($request->file('image'))) {
-            $product = Product::where('name_product', $name_product)->first();
+        if(empty($request->file('image'))){
+            $product = Product::findOrFail($id);
             $product->update([
-                'name_product' => $request->name_product,
-                'price' => $request->price,
-                'quantity' => $request->quantity,
-                'weight' => $request->weight,
+            'name_product'  => $request->name_product,
+            'price'         => $request->price,
+            'status'        => $request->status,
+            'quantity'      => $request->quantity,
+            'weight'        => $request->weight,
             ]);
-        } else {
-            $product = Product::where('name_product', $name_product)->first();
+            return redirect()->route('product.index');
+        }
+        else{
+            $product = Product::findOrFail($id);
             Storage::delete($product->image);
             $product->update([
-                'name_product' => $request->name_product,
-                'price' => $request->price,
-                'quantity' => $request->quantity,
-                'weight' => $request->weight,
-                'image' => $request->file('image')->store('image-product'),
+            'name_product'  => $request->name_product,
+            'price'         => $request->price,
+            'status'        => $request->status,
+            'quantity'      => $request->quantity,
+            'weight'        => $request->weight,
+            'image'         => $request->file('image')->store('image-product'),
             ]);
+
+            return redirect()->route('product.index')->with(['success' => 'data berhasil terupdate']);
         }
-
-
-        return view('product.update', [
-            'product'  => $product,
-            'title' => $title
-        ]);
     }
 
     /**

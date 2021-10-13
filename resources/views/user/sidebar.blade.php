@@ -87,6 +87,22 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#pesanan">
+                        <i class="fas fa-wallet"></i>
+                        <p>Transaksi</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="pesanan">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="#">
+                                    <span class="sub-item">Pesanan</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 @else
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#pesanan">
