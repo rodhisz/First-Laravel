@@ -6,6 +6,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 use function GuzzleHttp\Promise\all;
 
@@ -26,11 +27,11 @@ class ProductController extends Controller
 
         $i = 1;
         $title = "Product List";
-        $product = Product::all();
+        $product = Product::orderBy('id', 'desc')->paginate(5);
         return view('product.index',[
             'title' => $title,
             'product' => $product,
-            'i' => $i
+            'i' => $i,
         ]);
     }
 
@@ -52,6 +53,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // $i = 1;
         if(empty($request -> file('image'))){
             Product::create([
                 'name_product'  => $request->name_product,
@@ -59,6 +61,7 @@ class ProductController extends Controller
                 'status'        => $request->status,
                 'quantity'      => $request->quantity,
                 'weight'        => $request->weight,
+                'slug'          => Str::slug($request->name_product, '-'),
             ]);
             return redirect()->route('product.index');
         }
@@ -69,6 +72,7 @@ class ProductController extends Controller
                 'status'        => $request->status,
                 'quantity'      => $request->quantity,
                 'weight'        => $request->weight,
+                'slug'          => Str::slug($request->name_product, '-'),
                 'image'         => $request->file('image')->store('image-product'),
             ]);
             return redirect()->route('product.index');
@@ -109,7 +113,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         // return dd($request);
-
+        // $i = 1;
         if(empty($request->file('image'))){
             $product = Product::findOrFail($id);
             $product->update([
@@ -118,6 +122,7 @@ class ProductController extends Controller
             'status'        => $request->status,
             'quantity'      => $request->quantity,
             'weight'        => $request->weight,
+            'slug'          => Str::slug($request->name_product, '-'),
             ]);
             return redirect()->route('product.index');
         }
@@ -130,6 +135,7 @@ class ProductController extends Controller
             'status'        => $request->status,
             'quantity'      => $request->quantity,
             'weight'        => $request->weight,
+            'slug'          => Str::slug($request->name_product, '-'),
             'image'         => $request->file('image')->store('image-product'),
             ]);
 
@@ -150,4 +156,14 @@ class ProductController extends Controller
         Product::findOrFail($id)->delete();
         return redirect() -> route('product.index')-> with('success','Data berhasil dihapus.');
     }
+
+    public function search(Request $request)
+    {
+        $i = 1;
+        $title = "Result";
+        $keyword = $request->search;
+        $product = Product::where('name_product', 'like', "%" . $keyword . "%")->paginate(5);
+        return view('product.index', compact('product','title','i'))->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
 }

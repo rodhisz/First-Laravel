@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Landing\LandingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+//Landing
+Route::get('/', [App\Http\Controllers\landing\LandingController::class, 'index'])->name('landing');
 
 Auth::routes();
 
@@ -31,6 +35,9 @@ Route::get('/change', [App\Http\Controllers\ChangePasswordController::class, 'ch
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/table', [App\Http\Controllers\UserController::class, 'table'])->name('table')->middleware('auth');
 Route::get('/index', [App\Http\Controllers\ProdukController::class, 'index'])->name('index');
+Route::get('/search', [ProductController::class, 'search'])->name('search');
+Route::get('/detail/{slug}', [LandingController::class, 'detailProduct'])->name('product.detail');
+
 
 Route::put('/update-pass', [App\Http\Controllers\ChangePasswordController::class, 'updatePass'])->name('update-pass')->middleware('auth');
 

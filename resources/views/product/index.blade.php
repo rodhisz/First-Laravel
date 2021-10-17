@@ -19,18 +19,37 @@
                 </li>
             </ul>
         </div>
+
+        <!-- Start kode untuk form pencarian -->
+        <form class="form" method="get" action="{{ route('search') }}">
+            <div class="form-group w-50 mb-3">
+                {{-- <label for="search" class="d-block mr-2">Search</label> --}}
+                <input type="text" name="search" class="form-control w-75 d-inline btn-round" id="search" placeholder="Search...">
+                <button type="submit" class="btn btn-primary btn-rounded">
+                    <i class="fa fa-search search-icon"></i>
+                </button>
+            </div>
+        </form>
+        <!-- Start kode untuk form pencarian -->
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Product List</h4>
-                            <a class="btn btn-primary btn-round ml-auto" type="button" href="{{route('product.create')}}">
+                            <a class="btn btn-primary btn-rounded ml-auto" type="button" href="{{route('product.create')}}">
                                 <i class="fa fa-plus"></i>
                                 Add Product
                             </a>
                         </div>
                     </div>
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-striped table-hover">
@@ -56,7 +75,9 @@
                                         <td>{{($p->status)}}</td>
                                         <td>{{$p->quantity}}</td>
                                         <td>{{$p->weight}}</td>
-                                        <td><img src="{{url('storage/'.$p->image)}}" style="max-width: 100px !important; border-radius:5px;" class="img-thumbnail" alt=""></td>
+                                        <td>
+                                            <img src="{{url('storage/'.$p->image)}}" style="max-width: 100px !important; border-radius:5px;" class="img-thumbnail" alt="">
+                                        </td>
                                         <td>
                                             <div class="form-button-action">
 
@@ -78,6 +99,20 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">
+                                        Showing &nbsp; <strong>{{ $product->firstItem() }}</strong> &nbsp;
+                                        to &nbsp; <strong>{{ $product->lastItem() }}</strong> &nbsp;
+                                        of &nbsp; <strong>{{ $product->total() }}</strong> &nbsp; entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
+                                        {{ $product->links('pagination::bootstrap-4') }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

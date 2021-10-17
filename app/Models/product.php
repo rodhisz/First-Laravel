@@ -18,6 +18,7 @@ class product extends Model
         'quantity',
         'weight',
         'image',
+        'slug',
     ];
 
     protected $hidden = [];
