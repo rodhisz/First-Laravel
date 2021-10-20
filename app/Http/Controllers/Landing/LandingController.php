@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
+use App\Models\category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,11 @@ class LandingController extends Controller
     {
         $title = "Beranda - IDN";
         $product = Product::all();
+        $category = category::all();
         return view('landing.yield.index', [
             'product' => $product,
             'title' => $title,
+            'category' => $category
         ]);
     }
 

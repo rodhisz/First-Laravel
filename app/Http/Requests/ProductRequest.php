@@ -31,4 +31,11 @@ class ProductRequest extends FormRequest
             'image' => 'required',
         ];
     }
+
+    // public function messages()
+    // {
+    //     return [
+    //         'name_product.required' => 'harus diisi!'
+    //     ];
+    // }
 }

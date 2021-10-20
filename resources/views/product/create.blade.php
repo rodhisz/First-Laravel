@@ -38,12 +38,13 @@
 											</div>
 											<div class="col-lg-4 col-md-9 col-sm-8">
 												<input type="text" name="name_product" class="form-control input-fixed" id="exampleInputPassword1">
-											</div>
-                                            @error('name_product')
+
+                                                @error('name_product')
                                                 <div class="invalid-feedback" style="width: 300px !important;" role="alert">
                                                     <strong>{{$message}}</strong>
                                                 </div>
-                                            @enderror
+                                                @enderror
+											</div>
 										</div>
 										<div class="form-group form-show-notify row">
 											<div class="col-lg-3 col-md-3 col-sm-4 text-right">

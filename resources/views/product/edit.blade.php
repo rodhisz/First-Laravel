@@ -63,10 +63,36 @@
                                         </div>
                                         <div class="col-lg-4 col-md-9 col-sm-8">
                                             {{-- <input type="text" name="price" value="{{$product->price}}"class="form-control input-fixed" id="exampleInputPassword1"> --}}
-                                            <select class="@error('status') is invalid @enderror form-control input-fixed" name="status" id="">
+                                            {{-- <select class="@error('status') is invalid @enderror form-control input-fixed" name="status" id="">
                                                 <option value="">Select Status</option>
-                                                <option value="Available" @if (old('status')) == "Available") selected="selected" @endif>Available</option>
+                                                <option value="Available" @if(old('status')) == "Available") selected="selected" @endif>Available</option>
                                                 <option value="Unavailable" (old('status')) == "Unavailable" ? 'selected' : '' }}>Unavailable</option>
+                                            </select> --}}
+
+                                            <select class="form-control input-fixed" name="status">
+                                                @if ($product->status == 'Available')
+                                                    <option value="">Select Status</option>
+                                                    <option value="Available" selected>Available</option>
+                                                    <option value="Unavailable">Unavailable</option>
+                                                @else
+                                                    <option value="">Select Status</option>
+                                                    <option value="Available">Available</option>
+                                                    <option value="Unavailable" selected>Unavailable</option>
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-show-notify row">
+                                        <div class="col-lg-3 col-md-3 col-sm-4 text-right">
+                                            <label>Category :</label>
+                                        </div>
+                                        <div class="col-lg-4 col-md-9 col-sm-8">
+                                            <select class="@error('category_id') is invalid @enderror form-control input-fixed" name="category_id">
+                                                <option value="">Select Category</option>
+                                                @foreach ($category as $cat)
+                                                <option value="{{$cat->id}}" @if ($cat->id == $product->category_id) selected="selected" @endif>{{$cat->name_category}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

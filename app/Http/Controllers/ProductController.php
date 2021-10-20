@@ -59,6 +59,13 @@ class ProductController extends Controller
     {
         // $i = 1;
         // return dd($request);
+        // $request->validate([
+        //     'name_product' => 'required',
+        //     'price' => 'required',
+        //     'quantity' => 'required',
+        //     'weight' => 'required',
+        //     'image' => 'required',
+        // ]);
         if(empty($request -> file('image'))){
             Product::create([
                 'name_product'  => $request->name_product,
@@ -69,7 +76,7 @@ class ProductController extends Controller
                 'category_id'   => $request->category_id,
                 'slug'          => Str::slug($request->name_product, '-'),
             ]);
-            return redirect()->route('product.index');
+            return redirect()->route('product.index')->with(['success' => 'data berhasil ditambah']);
         }
         else{
             Product::create([
@@ -82,7 +89,7 @@ class ProductController extends Controller
                 'slug'          => Str::slug($request->name_product, '-'),
                 'image'         => $request->file('image')->store('image-product'),
             ]);
-            return redirect()->route('product.index');
+            return redirect()->route('product.index')->with(['success' => 'data berhasil ditambah']);
         }
     }
 
@@ -107,7 +114,8 @@ class ProductController extends Controller
     {
         $title = "Edit Product";
         $product = Product::findOrFail($id);
-        return view('product.edit', compact('title', 'product'));
+        $category = Category::all();
+        return view('product.edit', compact('title', 'product','category'));
     }
 
     /**
@@ -127,11 +135,12 @@ class ProductController extends Controller
             'name_product'  => $request->name_product,
             'price'         => $request->price,
             'status'        => $request->status,
+            'category_id'   => $request->category_id,
             'quantity'      => $request->quantity,
             'weight'        => $request->weight,
             'slug'          => Str::slug($request->name_product, '-'),
             ]);
-            return redirect()->route('product.index');
+            return redirect()->route('product.index')->with(['success' => 'data berhasil terupdate']);
         }
         else{
             $product = Product::findOrFail($id);
@@ -140,6 +149,7 @@ class ProductController extends Controller
             'name_product'  => $request->name_product,
             'price'         => $request->price,
             'status'        => $request->status,
+            'category_id'   => $request->category_id,
             'quantity'      => $request->quantity,
             'weight'        => $request->weight,
             'slug'          => Str::slug($request->name_product, '-'),

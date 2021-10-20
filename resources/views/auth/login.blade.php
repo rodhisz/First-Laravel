@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('landing.template')
 
 @section('content')
-<div class="container">
+<div class="container" style="padding: 90px 0px 90px 0px">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
