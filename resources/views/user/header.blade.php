@@ -44,11 +44,11 @@
                 <li class="nav-item dropdown hidden-caret">
                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                         <div class="avatar-sm">
-                            @if (Auth::user()->name == '')
+                            {{-- @if ($user->image != '')
+                            <img src="{{url('storage', $user->image)}}" alt="" class="avatar-img rounded-circle">
+                            @else
                             <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="..." class="avatar-img rounded-circle">
-                            @elseif (Auth::user()->name != '')
-                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name}}"   alt="..." class="avatar-img rounded-circle">
-                            @endif
+                            @endif --}}
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -56,11 +56,11 @@
                             <li>
                                 <div class="user-box">
                                     <div class="avatar-lg">
-                                        @if (Auth::user()->name == '')
-                                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="..." class="avatar-img rounded-circle">
-                                        @elseif (Auth::user()->name != '')
-                                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name}}"   alt="..." class="avatar-img rounded-circle">
-                                        @endif
+                                        {{-- @if ($user->image != '')
+                                        <img src="{{url('storage', $user->image)}}" alt="" class="avatar-img rounded">
+                                        @else
+                                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="..." class="avatar-img rounded">
+                                        @endif --}}
                                     </div>
                                     <div class="u-text">
                                         <h4>{{Auth::user()->name}}</h4>

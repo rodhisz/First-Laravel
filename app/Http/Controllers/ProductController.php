@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProdukRequest;
+use App\Models\category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -42,7 +44,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $title = "Add Product";
+        $category = Category::all();
+        return view('product.create', compact('title','category'));
     }
 
     /**
@@ -51,9 +55,10 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         // $i = 1;
+        // return dd($request);
         if(empty($request -> file('image'))){
             Product::create([
                 'name_product'  => $request->name_product,
@@ -61,6 +66,7 @@ class ProductController extends Controller
                 'status'        => $request->status,
                 'quantity'      => $request->quantity,
                 'weight'        => $request->weight,
+                'category_id'   => $request->category_id,
                 'slug'          => Str::slug($request->name_product, '-'),
             ]);
             return redirect()->route('product.index');
@@ -72,6 +78,7 @@ class ProductController extends Controller
                 'status'        => $request->status,
                 'quantity'      => $request->quantity,
                 'weight'        => $request->weight,
+                'category_id'   => $request->category_id,
                 'slug'          => Str::slug($request->name_product, '-'),
                 'image'         => $request->file('image')->store('image-product'),
             ]);
@@ -87,7 +94,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**

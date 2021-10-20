@@ -17,10 +17,16 @@ class product extends Model
         'status',
         'quantity',
         'weight',
+        'category_id',
         'image',
         'slug',
     ];
 
     protected $hidden = [];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 }

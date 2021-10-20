@@ -3,11 +3,11 @@
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    @if (Auth::user()->name == '')
-                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="..." class="avatar-img rounded-circle">
-                    @elseif (Auth::user()->name != '')
-                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name}}"   alt="..." class="avatar-img rounded-circle">
-                    @endif
+                    {{-- @if ($user->image != '')
+                    <img src="{{url('storage', $user->image)}}" alt="" class="avatar-img rounded">
+                    @else
+                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="..." class="avatar-img rounded">
+                    @endif --}}
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -82,6 +82,11 @@
                             <li>
                                 <a href="{{route('product.index')}}">
                                     <span class="sub-item">List Produk</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('category.index')}}">
+                                    <span class="sub-item">Category</span>
                                 </a>
                             </li>
                         </ul>

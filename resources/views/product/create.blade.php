@@ -25,7 +25,7 @@
 					<div class="card-header">
 						<div class="card-title">Add Product</div>
 					</div>
-					<form action="{{url('/product')}}" method="post" enctype="multipart/form-data">
+					<form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
 						@csrf
 						<div class="card-body">
 							<div class="row">
@@ -39,6 +39,11 @@
 											<div class="col-lg-4 col-md-9 col-sm-8">
 												<input type="text" name="name_product" class="form-control input-fixed" id="exampleInputPassword1">
 											</div>
+                                            @error('name_product')
+                                                <div class="invalid-feedback" style="width: 300px !important;" role="alert">
+                                                    <strong>{{$message}}</strong>
+                                                </div>
+                                            @enderror
 										</div>
 										<div class="form-group form-show-notify row">
 											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
@@ -47,6 +52,11 @@
 											<div class="col-lg-4 col-md-9 col-sm-8">
 												<input type="text" name="price" class="form-control input-fixed" id="exampleInputPassword1">
 											</div>
+                                            @error('price')
+                                                <div class="invalid-feedback" style="width: 300px !important;" role="alert">
+                                                    <strong>{{$message}}</strong>
+                                                </div>
+                                            @enderror
 										</div>
 										<div class="form-group form-show-notify row">
 											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
@@ -59,6 +69,29 @@
                                                     <option value="Unavailable" (old('status')) == "Unavailable" ? 'selected' : '' }}>Unavailable</option>
                                                 </select>
 											</div>
+                                            @error('status')
+                                                <div class="invalid-feedback" style="width: 300px !important;" role="alert">
+                                                    <strong>{{$message}}</strong>
+                                                </div>
+                                            @enderror
+										</div>
+										<div class="form-group form-show-notify row">
+											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
+												<label>Category :</label>
+											</div>
+											<div class="col-lg-4 col-md-9 col-sm-8">
+												<select class="@error('category_id') is invalid @enderror form-control input-fixed" name="category_id">
+                                                    <option value="">Select Category</option>
+                                                    @foreach ($category as $cat)
+                                                    <option value="{{$cat->id}}">{{$cat->name_category}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('category_id')
+                                                    <div class="invalid-feedback" style="width: 300px !important;" role="alert">
+                                                        <strong>{{$message}}</strong>
+                                                    </div>
+                                                @enderror
+											</div>
 										</div>
 										<div class="form-group form-show-notify row">
 											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
@@ -67,6 +100,11 @@
 											<div class="col-lg-4 col-md-9 col-sm-8">
 												<input type="text" name="quantity" class="form-control input-fixed" id="exampleInputPassword1">
 											</div>
+                                            @error('quantity')
+                                                <div class="invalid-feedback" style="width: 300px !important;" role="alert">
+                                                    <strong>{{$message}}</strong>
+                                                </div>
+                                            @enderror
 										</div>
 										<div class="form-group form-show-notify row">
 											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
@@ -75,6 +113,11 @@
 											<div class="col-lg-4 col-md-9 col-sm-8">
 												<input type="text" name="weight" class="form-control input-fixed" id="exampleInputPassword1">
 											</div>
+                                            @error('weight')
+                                                <div class="invalid-feedback" style="width: 300px !important;" role="alert">
+                                                    <strong>{{$message}}</strong>
+                                                </div>
+                                            @enderror
 										</div>
 										<div class="form-group form-show-notify row">
 											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
@@ -86,7 +129,6 @@
 										</div>
 										<div class="form-group form-show-notify row">
 											<div class="col-lg-3 col-md-3 col-sm-4 text-right">
-												<label> Gambar :</label>
 											</div>
 											<div class="col-lg-4 col-md-9 col-sm-8">
 												<input type="file" name="image">

@@ -42,76 +42,69 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">Product List</h4>
-                            <a class="btn btn-primary btn-rounded ml-auto" type="button" href="{{route('product.create')}}">
+                            <h4 class="card-title">Category List</h4>
+                            <!-- Button trigger modal -->
+                            <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
                                 <i class="fa fa-plus"></i>
-                                Add Product
-                            </a>
+                                Add Category
+                            </button>
                         </div>
                     </div>
 
                     <div class="card-body">
+                        <!-- Modal -->
+                        @include('category.modal.add')
+
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-striped table-hover">
                                 <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Product Name</th>
-                                        <th>Price</th>
-                                        <th>Status</th>
-                                        <th>Category</th>
-                                        <th>Quantity</th>
-                                        <th>Weight</th>
-                                        <th>Image</th>
-                                        <th style="width: 10%">Action</th>
+                                    <tr style="text-align: center;" role="row">
+                                        <th class="sorting" style="width: 10px;">#</th>
+                                        <th class="sorting" style="width: 167,797;">Category</th>
+                                        <th style="width: 122,344;">Action</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($product as $p)
+                                    @forelse ($category as $p)
                                     <tr>
-                                        <td>{{$i++}}</td>
-                                        <td>{{$p->name_product}}</td>
-                                        <td>Rp. {{number_format($p->price)}}</td>
-                                        <td>{{($p->status)}}</td>
-                                        <td>{{($p->category->name_category)}}</td>
-                                        <td>{{$p->quantity}}</td>
-                                        <td>{{$p->weight}}</td>
-                                        <td>
-                                            <img src="{{url('storage/'.$p->image)}}" style="max-width: 100px !important; border-radius:5px;" class="img-thumbnail" alt="">
-                                        </td>
+                                        <td>{{$p->id}}</td>
+                                        <td class="text-left">{{$p->name_category}}</td>
                                         <td>
                                             <div class="form-button-action">
 
-                                                <a href="{{route('product.edit',$p->id)}}" title="Edit" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Product">
+                                                <a href="{{route('update.category',$p->id)}}" title="Edit" class="btn btn-link btn-primary btn-lg" data-original-title="Edit" data-toggle="modal" data-target="#editModal{{$p->id}}">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
+                                                @include('category.modal.edit')
+                                                </form>
 
-                                                <form action="{{route('product.destroy', $p->id)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                                <button data-target="#delCategory{{$p->id}}" data-toggle="modal" title="Delete" class="btn btn-link btn-danger" data-original-title="Remove">
                                                     <i class="fa fa-times"></i>
                                                 </button>
-                                                </form>
+                                                @include('category.modal.delete')
 
                                             </div>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center">Data Tidak Ditemukan</td>
+                                    </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                             <div class="row">
                                 <div class="col-sm-12 col-md-5">
                                     <div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">
-                                        Showing &nbsp; <strong>{{ $product->firstItem() }}</strong> &nbsp;
-                                        to &nbsp; <strong>{{ $product->lastItem() }}</strong> &nbsp;
-                                        of &nbsp; <strong>{{ $product->total() }}</strong> &nbsp; entries
+                                        Showing &nbsp; <strong>{{ $category->firstItem() }}</strong> &nbsp;
+                                        to &nbsp; <strong>{{ $category->lastItem() }}</strong> &nbsp;
+                                        of &nbsp; <strong>{{ $category->total() }}</strong> &nbsp; entries
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-7">
                                     <div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
-                                        {{ $product->links('pagination::bootstrap-4') }}
+                                        {{ $category->links('pagination::bootstrap-4') }}
                                     </div>
                                 </div>
                             </div>
@@ -122,9 +115,4 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 @endsection
