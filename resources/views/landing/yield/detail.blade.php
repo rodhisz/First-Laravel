@@ -21,7 +21,7 @@
     <div class="row mt-4">
         <!-- Kiri -->
         <div class="col md-6">
-            <div class="card">
+            <div class="card" style="width: 18rem !important;">
                 <div class="card-body text-center">
                     <img src="{{url('storage/'.$product->image)}}" class="img-fluid w-75" alt="...">
                 </div>
@@ -29,29 +29,37 @@
         </div>
         <!-- Kanan -->
         <div class="col md-6">
-            <h3>{{$product->name_product}}</h3>
-            <h2>Rp. {{number_format($product->price)}}</h2>
+            <h2>
+                <Strong>{{$product->name_product}}</Strong>
+            </h2>
+            <h4>Rp. {{number_format($product->price)}}
+                @if ($product->status == 'Available')
+                    <span class="badge bg-success"><i class="fas fa-check"></i>Available</span>
+                @else
+                    <span class="badge bg-danger"><i class="fas fa-times"></i>Unavailable</span>
+                @endif
+            </h4>
 
             <table class="table">
                 <tbody>
                 <tr>
-                    <td>Jenis</td>
-                    <td colspan="2">Pakaian</td>
+                    <td>Category</td>
+                    <td colspan="2">: {{$product->category->name_category}}</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Berat</td>
-                    <td colspan="2">{{$product->weight}}</td>
+                    <td>waight</td>
+                    <td colspan="2">: {{$product->weight}} kg</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Jumlah</td>
-                    <td colspan="2">{{$product->quantity}}</td>
+                    <td colspan="2">: {{$product->quantity}}</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td colspan="2">{{$product->status}}</td>
+                    <td colspan="2">: {{$product->status}}</td>
                     <td></td>
                 </tbody>
             </table>

@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
+
     public function index()
     {
         $title = "Beranda - IDN";
-        $product = Product::all();
+        $product = Product::take(8)->orderBy('id', 'desc')->get();
         $category = category::all();
         return view('landing.yield.index', [
             'product' => $product,
@@ -28,6 +29,26 @@ class LandingController extends Controller
         return view('landing.yield.detail',[
             'product'   => $product,
             'title'     => $title,
+        ]);
+    }
+
+    public function perCategory($slug)
+    {
+        $nm_kt = category::where('slug', $slug)->first();
+        $title = "Category $nm_kt->name_category";
+        $product = product::where('category_id', $nm_kt->id)->get();
+        return view('landing.yield.per-category', compact('product','title','nm_kt'));
+    }
+
+    public function allproduct()
+    {
+        $title = "All Product";
+        $product = product::orderBy('id', 'desc')->get();
+        $category = category::all();
+        return view('landing.yield.allproduct',[
+            'product' => $product,
+            'title'   => $title,
+            'category' => $category,
         ]);
     }
 }

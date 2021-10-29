@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.87.0">
-    <title>NBA Store</title>
+    <title>{{$title ?? ''}}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
 
@@ -29,6 +29,16 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fontawesome/css/all.css">
 </head>
+
+<style>
+    .anchor{
+        color: black;
+    }
+    .anchor::hover{
+        color: black;
+        font-weight: 600px;
+    }
+</style>
 
 <body>
     <!-- Navbar -->

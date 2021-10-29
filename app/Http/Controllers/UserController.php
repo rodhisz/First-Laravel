@@ -43,9 +43,13 @@ class UserController extends Controller
      */
     public function index()
     {
+        $title = "Profile";
+        $user = User::all();
         $userCount = User::where('role','User')->count();
         return view('user.content.index',[
-            'userCount' => $userCount
+            'user' => $user,
+            'userCount' => $userCount,
+            'title' => $title,
         ]);
     }
 
