@@ -26,8 +26,8 @@
     <!-- Custom styles for this template -->
     <link href="{{asset('landing/custom/corousel.css')}}" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <link rel="stylesheet" href="{{asset('style.css')}}">
+    <link rel="stylesheet" href="{{asset('landing/fontawesome/css/all.css')}}">
 </head>
 
 <style>

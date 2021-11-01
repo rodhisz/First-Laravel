@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{route('allproduct')}}">All Product</a>
@@ -30,12 +30,15 @@
         </ul>
         <form class="d-flex">
             @guest
-                <a class="nav-link anchor" aria-current="page" href="#"><i class="fas fa-search"></i>Search</a>
+                <a class="nav-link anchor" aria-current="page" href="{{route('allproduct')}}"><i class="fas fa-search"></i>Search</a>
                 <a href="{{route('login')}}" class="btn btn-outline-dark me-2" type="button">Login</a>
                 <a href="{{route('register')}}" class="btn btn-dark me-2" type="button">Register</a>
             @else
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
+                <a class="nav-link anchor" aria-current="page" href="{{route('search.product')}}"><i class="fas fa-search"></i>Search</a>
+                <a class="nav-link anchor ms-3" aria-current="page" href="{{route('allproduct')}}"><i class="fas fa-shopping-cart"></i>Cart</a>
+                <a class="nav-link anchor ms-3" aria-current="page" href="{{route('allproduct')}}"><i class="fas fa-history"></i>History</a>
+                <li class="nav-item dropdown ms-3">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ Auth::user()->name }}
                     </a>

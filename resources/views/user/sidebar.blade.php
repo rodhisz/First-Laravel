@@ -3,11 +3,11 @@
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    @if ($user->image != '')
-                    <img src="{{url('storage', $user->image)}}" alt="" class="avatar-img rounded">
+                    {{-- @if ($user->image != '')
+                    <img src="{{url('storage', $user->image)}}" alt="Pp" class="avatar-img rounded">
                     @else
                     <img src="https://ui-avatars.com/api/?name={{ Auth::user()->username}}"   alt="..." class="avatar-img rounded">
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">

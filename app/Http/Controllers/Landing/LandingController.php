@@ -51,4 +51,16 @@ class LandingController extends Controller
             'category' => $category,
         ]);
     }
+
+    public function searchProduct(Request $request)
+    {
+        $title = "Search Product";
+        $keyword = $request->search;
+        $product = product::where('name_product','like',"%". $keyword . "%")->get();
+        return view('landing.yield.search-product',[
+            'product' => $product,
+            'title'   => $title,
+            'keyword'   => $keyword,
+        ]);
+    }
 }

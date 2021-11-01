@@ -57,15 +57,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        // $i = 1;
-        // return dd($request);
-        // $request->validate([
-        //     'name_product' => 'required',
-        //     'price' => 'required',
-        //     'quantity' => 'required',
-        //     'weight' => 'required',
-        //     'image' => 'required',
-        // ]);
+        return dd($request);
         if(empty($request -> file('image'))){
             Product::create([
                 'name_product'  => $request->name_product,
