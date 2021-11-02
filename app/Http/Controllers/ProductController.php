@@ -55,33 +55,29 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        return dd($request);
-        if(empty($request -> file('image'))){
+        if (empty($request->file('image'))) {
             Product::create([
-                'name_product'  => $request->name_product,
-                'price'         => $request->price,
-                'status'        => $request->status,
-                'quantity'      => $request->quantity,
-                'weight'        => $request->weight,
-                'category_id'   => $request->category_id,
-                'slug'          => Str::slug($request->name_product, '-'),
+                'name_product' => $request->name_product,
+                'category_id' => $request->category_id,
+                'price' => $request->price,
+                'status' => $request->status,
+                'berat' => $request->berat,
+                'slug' => Str::slug($request->name_product, '-'),
             ]);
-            return redirect()->route('product.index')->with(['success' => 'data berhasil ditambah']);
-        }
-        else{
+            return redirect()->route('produk.index')->with(['success' =>'data berhasil dibuat']);
+        } else {
             Product::create([
-                'name_product'  => $request->name_product,
-                'price'         => $request->price,
-                'status'        => $request->status,
-                'quantity'      => $request->quantity,
-                'weight'        => $request->weight,
-                'category_id'   => $request->category_id,
-                'slug'          => Str::slug($request->name_product, '-'),
-                'image'         => $request->file('image')->store('image-product'),
+                'name_product' => $request->name_product,
+                'category_id' => $request->category_id,
+                'price' => $request->price,
+                'status' => $request->status,
+                'berat' => $request->berat,
+                'slug' => Str::slug($request->name_product, '-'),
+                'image' => $request->file('image')->store('image-product'),
             ]);
-            return redirect()->route('product.index')->with(['success' => 'data berhasil ditambah']);
+            return redirect()->route('produk.index')->with(['success' =>'data berhasil dibuat']);
         }
     }
 
@@ -175,4 +171,32 @@ class ProductController extends Controller
         return view('product.index', compact('product','title','i'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
+    public function buatBaru(Request $request)
+    {
+        // dd($request);
+        if(empty($request -> file('image'))){
+            Product::create([
+                'name_product'  => $request->name_product,
+                'price'         => $request->price,
+                'status'        => $request->status,
+                'quantity'      => $request->quantity,
+                'weight'        => $request->weight,
+                'category_id'   => $request->category_id,
+                'slug'          => Str::slug($request->name_product, '-'),
+            ]);
+        }
+        else{
+            Product::create([
+                'name_product'  => $request->name_product,
+                'price'         => $request->price,
+                'status'        => $request->status,
+                'quantity'      => $request->quantity,
+                'weight'        => $request->weight,
+                'category_id'   => $request->category_id,
+                'slug'          => Str::slug($request->name_product, '-'),
+                'image'         => $request->file('image')->store('image-product'),
+            ]);
+            return redirect()->route('product.index')->with(['success' => 'data berhasil ditambah']);
+        }
+    }
 }

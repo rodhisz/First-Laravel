@@ -24,20 +24,27 @@
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
             </li>
-            <li class="nav-item">
-            <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
-            </li>
         </ul>
         <form class="d-flex">
             @guest
-                <a class="nav-link anchor" aria-current="page" href="{{route('allproduct')}}"><i class="fas fa-search"></i>Search</a>
-                <a href="{{route('login')}}" class="btn btn-outline-dark me-2" type="button">Login</a>
-                <a href="{{route('register')}}" class="btn btn-dark me-2" type="button">Register</a>
+                <a class="nav-link anchor" aria-current="page" href="{{route('allproduct')}}"><i class="fas fa-search"></i>&nbsp;Search</a>
+                <a href="{{route('login')}}" class="btn btn-outline-dark me-2" type="button">&nbsp;Login</a>
+                <a href="{{route('register')}}" class="btn btn-dark me-2" type="button">&nbsp;Register</a>
             @else
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <a class="nav-link anchor" aria-current="page" href="{{route('search.product')}}"><i class="fas fa-search"></i>Search</a>
-                <a class="nav-link anchor ms-3" aria-current="page" href="{{route('allproduct')}}"><i class="fas fa-shopping-cart"></i>Cart</a>
-                <a class="nav-link anchor ms-3" aria-current="page" href="{{route('allproduct')}}"><i class="fas fa-history"></i>History</a>
+                <a class="nav-link anchor" aria-current="page" href="{{route('search.product')}}"><i class="fas fa-search"></i>&nbsp;Search</a>
+                <li class="nav-item dropdown ms-3">
+                    <a class="nav-link anchor ms-3" aria-current="page" href="{{route('cart')}}">
+                        @if ($jumlah !== 0)
+                        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger">{{$jumlah}}</span>
+                        @endif
+                        <i class="fas fa-shopping-cart"></i>&nbsp;Cart
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown ms-3">
+                    <a class="nav-link anchor ms-3" aria-current="page" href="#"><i class="fas fa-history"></i>&nbsp;History</a>
+                </li>
                 <li class="nav-item dropdown ms-3">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ Auth::user()->name }}

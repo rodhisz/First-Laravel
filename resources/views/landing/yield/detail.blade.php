@@ -12,18 +12,22 @@
         </nav>
     </div>
 
-    <div style="margin-top: -10px;">
-        <div class="alert alert-success" role="alert">
-            A simple success alert—check it out!
+    @if (Session::get('success'))
+        <div class="row flash">
+            <div class="col-md-12">
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="row mt-4">
         <!-- Kiri -->
         <div class="col md-6">
-            <div class="card" style="width: 18rem !important;">
+            <div class="card">
                 <div class="card-body text-center">
-                    <img src="{{url('storage/'.$product->image)}}" class="img-fluid w-75" alt="...">
+                    <img src="{{url('storage/'.$product->image)}}" class="img-fluid w-500" alt="...">
                 </div>
             </div>
         </div>
@@ -40,32 +44,53 @@
                 @endif
             </h4>
 
+            <form action="{{route('landing.cart')}}" method="POST">
+            @csrf
+
+            <input type="hidden" value="{{$product->id}}" name="id">
+            <input type="hidden" value="{{$product->name_product}}" name="name_product">
+            <input type="hidden" value="{{$product->price}}" name="price">
+
             <table class="table">
-                <tbody>
                 <tr>
                     <td>Category</td>
-                    <td colspan="2">: {{$product->category->name_category}}</td>
-                    <td></td>
+                    <td>:</td>
+                    <td colspan="2">{{$product->category->name_category}}</td>
                 </tr>
                 <tr>
                     <td>waight</td>
+                    <td>:</td>
                     <td colspan="2">: {{$product->weight}} kg</td>
-                    <td></td>
                 </tr>
                 <tr>
-                    <td>Jumlah</td>
-                    <td colspan="2">: {{$product->quantity}}</td>
-                    <td></td>
+                    <td>Quantity</td>
+                    <td>:</td>
+                    <td>
+                        <input required class="form-control" name="quantity" style="width: 100%" type="number">
+                    </td>
                 </tr>
                 <tr>
-                    <td>Status</td>
-                    <td colspan="2">: {{$product->status}}</td>
-                    <td></td>
-                </tbody>
+                    <td>Note</td>
+                    <td>:</td>
+                    <td>
+                        <textarea class="form-control" placeholder="Opsional" name="note" rows="4"></textarea>
+                    </td>
+                </tr>
             </table>
-            <div class="row">
-                <a href="cart.html" class="btn btn-primary">Add to Cart</a>
-            </div>
+            @guest
+            <p class="text-center"><a href="{{route('login')}}">Login</a> untuk menambahkan produk ke keranjang</p>
+            @else
+            @if ($product->status == 'Available')
+                <div class="row">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart"></i>&nbsp;Add to Cart</button>
+                </div>
+            @else
+                <div class="row">
+                    <button disabled type="submit" class="btn btn-dark"> <strong>{{$product->name_product}}</strong> Out of Stock</button>
+                </div>
+            @endif
+            @endguest
+            </form>
         </div>
     </div>
 </div>

@@ -15,7 +15,7 @@
 					<i class="flaticon-right-arrow"></i>
 				</li>
 				<li class="nav-item">
-					<a href="{{route('product.store')}}">Add Product</a>
+					<a href="{{route('product.index')}}">Product List</a>
 				</li>
 			</ul>
 		</div>
@@ -25,7 +25,7 @@
 					<div class="card-header">
 						<div class="card-title">Add Product</div>
 					</div>
-					<form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
+					<form action="{{route('buat.baru')}}" method="POST" enctype="multipart/form-data">
 						@csrf
 						<div class="card-body">
 							<div class="row">
