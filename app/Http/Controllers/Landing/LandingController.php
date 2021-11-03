@@ -16,10 +16,6 @@ class LandingController extends Controller
 
     public function index()
     {
-        $order= Order::where('user_id', Auth::user()->id)->where('status',0)->first();
-        if($order){
-            $jumlah = OrderDetail::where('order_id', $order->id)->count();
-        }
         $title = "Beranda - IDN";
         $product = Product::take(8)->orderBy('id', 'desc')->get();
         $category = category::all();
@@ -27,43 +23,29 @@ class LandingController extends Controller
             'product' => $product,
             'title' => $title,
             'category' => $category,
-            'jumlah'    => $jumlah
         ]);
     }
 
     public function detailProduct($slug)
     {
-        $order= Order::where('user_id', Auth::user()->id)->where('status',0)->first();
-        if($order){
-            $jumlah = OrderDetail::where('order_id', $order->id)->count();
-        }
         $title = "Detail Product";
         $product = Product::where('slug', $slug)->first();
         return view('landing.yield.detail',[
             'product'   => $product,
             'title'     => $title,
-            'jumlah'    => $jumlah
         ]);
     }
 
     public function perCategory($slug)
     {
-        $order= Order::where('user_id', Auth::user()->id)->where('status',0)->first();
-        if($order){
-            $jumlah = OrderDetail::where('order_id', $order->id)->count();
-        }
         $nm_kt = category::where('slug', $slug)->first();
         $title = "Category $nm_kt->name_category";
         $product = product::where('category_id', $nm_kt->id)->get();
-        return view('landing.yield.per-category', compact('product','title','nm_kt','jumlah'));
+        return view('landing.yield.per-category', compact('product','title','nm_kt'));
     }
 
     public function allproduct()
     {
-        $order= Order::where('user_id', Auth::user()->id)->where('status',0)->first();
-        if($order){
-            $jumlah = OrderDetail::where('order_id', $order->id)->count();
-        }
         $title = "All Product";
         $product = product::orderBy('id', 'desc')->get();
         $category = category::all();
@@ -71,16 +53,11 @@ class LandingController extends Controller
             'product' => $product,
             'title'   => $title,
             'category' => $category,
-            'jumlah'    => $jumlah
         ]);
     }
 
     public function searchProduct(Request $request)
     {
-        $order= Order::where('user_id', Auth::user()->id)->where('status',0)->first();
-        if($order){
-            $jumlah = OrderDetail::where('order_id', $order->id)->count();
-        }
         $title = "Search Product";
         $keyword = $request->search;
         $product = product::where('name_product','like',"%". $keyword . "%")->get();
@@ -88,7 +65,6 @@ class LandingController extends Controller
             'product' => $product,
             'title'   => $title,
             'keyword'   => $keyword,
-            'jumlah'    => $jumlah
         ]);
     }
 
@@ -147,16 +123,33 @@ class LandingController extends Controller
     public function cart()
     {
         $i = 1;
-        $order= Order::where('user_id', Auth::user()->id)->where('status',0)->first();
-
-        if($order){
-            $jumlah = OrderDetail::where('order_id', $order->id)->count();
-        }
         $title = "Cart";
 
+        $detail = [];
+        $order= Order::where('user_id', Auth::user()->id)->where('status',0)->first();
         if($order){
             $detail = OrderDetail::where('order_id',$order->id)->get();
         }
-        return view('landing.yield.cart', compact('jumlah','title','detail','i'));
+        return view('landing.yield.cart', compact('title','detail','i','order'));
+    }
+
+    public function cartDelete($id)
+    {
+        $detail = OrderDetail::findOrFail($id);
+        $product = Product::where('id', $detail->product_id)->first();
+
+        if(!empty($detail)){
+            $order = Order::where('id', $detail->order_id)->first();
+            $jumlah_pesanan_detail = OrderDetail::where('order_id', $order->id)->count();
+            if ($jumlah_pesanan_detail == 1) {
+                $order->delete();
+            } else {
+                $order->total_price = $order->total_price - $detail->price;
+                $order->update();
+            }
+            $detail->delete();
+        }
+
+        return redirect()->back()->with('success', "Berhasil Menghapus Produk $product->name_product Dari Keranjang!");
     }
 }

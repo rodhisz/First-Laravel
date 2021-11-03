@@ -31,6 +31,7 @@ Route::get('/allproduct', [LandingController::class, 'allproduct'])->name('allpr
 Route::get('/searchproduct', [LandingController::class, 'searchProduct'])->name('search.product');
 Route::post('/cart', [LandingController::class, 'addtoCart'])->name('landing.cart');
 Route::get('/index-cart', [LandingController::class, 'cart'])->name('cart');
+Route::delete('/cart-delete/{id}', [LandingController::class, 'cartDelete'])->name('cart.delete');
 
 //User
 Route::resource('/profile', UserController::class)->middleware('auth')->except('create','store');
@@ -40,7 +41,6 @@ Route::get('/table', [App\Http\Controllers\UserController::class, 'table'])->nam
 Route::resource('/product', ProductController::class)->middleware('auth')->except('show');
 Route::get('/index', [ProductController::class, 'index'])->name('index');
 Route::get('/search', [ProductController::class, 'search'])->name('search');
-Route::post('/buat', [ProductController::class, 'buat'])->name('buat');
 Route::post('/buat-baru', [ProductController::class, 'buatBaru'])->name('buat.baru');
 
 //Home
