@@ -32,6 +32,9 @@ Route::get('/searchproduct', [LandingController::class, 'searchProduct'])->name(
 Route::post('/cart', [LandingController::class, 'addtoCart'])->name('landing.cart');
 Route::get('/index-cart', [LandingController::class, 'cart'])->name('cart');
 Route::delete('/cart-delete/{id}', [LandingController::class, 'cartDelete'])->name('cart.delete');
+Route::get('/checkout', [LandingController::class, 'checkout'])->name('checkout');
+Route::put('/update-address', [LandingController::class, 'updateAddress'])->name('landing.update-address');
+Route::get('/history', [LandingController::class, 'history'])->name('history');
 
 //User
 Route::resource('/profile', UserController::class)->middleware('auth')->except('create','store');

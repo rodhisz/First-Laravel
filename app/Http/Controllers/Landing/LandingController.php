@@ -152,4 +152,19 @@ class LandingController extends Controller
 
         return redirect()->back()->with('success', "Berhasil Menghapus Produk $product->name_product Dari Keranjang!");
     }
+
+    public function checkout()
+    {
+        $order= Order::where('user_id', Auth::user()->id)->where('status',0)->first();
+        $user = Auth::user();
+        return view('landing.yield.checkout',compact('order','user'));
+    }
+
+    public function updateAddress(Request $request)
+    {
+        // dd($request);
+        $user = User::where('id',$request->id)->first();
+        $user -> address = $request->address;
+        $user -> update();
+    }
 }

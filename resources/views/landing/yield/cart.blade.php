@@ -5,7 +5,7 @@
     <div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Cart</li>
             </ol>
         </nav>
@@ -73,7 +73,7 @@
                         <td align="right">Rp. {{number_format($order->total_price + $order->unique_code)}}</td>
                     </tr>
                     <tr>
-                        <td colspan="7" align="right"><a href="#" class="btn btn-primary">Check Out</a></td>
+                        <td colspan="7" align="right"><a href="{{route('checkout')}}" class="btn btn-primary">Check Out</a></td>
                     </tr>
                     @endif
                 </tbody>
