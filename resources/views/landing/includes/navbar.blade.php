@@ -43,7 +43,7 @@
                 </li>
 
                 <li class="nav-item dropdown ms-3">
-                    <a class="nav-link anchor ms-3" aria-current="page" href="#"><i class="fas fa-history"></i>&nbsp;History</a>
+                    <a class="nav-link anchor ms-3" aria-current="page" href="{{route('history')}}"><i class="fas fa-history"></i>&nbsp;History</a>
                 </li>
                 <li class="nav-item dropdown ms-3">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

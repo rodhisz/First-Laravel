@@ -162,9 +162,29 @@ class LandingController extends Controller
 
     public function updateAddress(Request $request)
     {
-        // dd($request);
+        if (Auth::user()) {
+            // dd($request);
         $user = User::where('id',$request->id)->first();
         $user -> address = $request->address;
         $user -> update();
+
+        $order = Order::where('user_id',Auth::user()->id)->where('status', 0)->first();
+        $order->status = 1;
+        $order->update();
+        }
+        return redirect()->route('history');
+    }
+
+    public function history()
+    {
+        $i = 1;
+        //Nyari user yang punya pesanan berdasarkan ID
+        $order = Order::where('user_id', Auth::user()->id)->where('status', 1, 2)->get();
+        if ($order)
+        {
+            $order = Order::where('user_id', Auth::user()->id)->get();
+        }
+
+        return view('landing.yield.history', compact('order','i'));
     }
 }
