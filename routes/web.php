@@ -3,6 +3,7 @@
 use App\Http\Controllers\Landing\LandingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 //Landing
 Route::get('/', [App\Http\Controllers\landing\LandingController::class, 'index'])->name('landing');
@@ -58,6 +59,13 @@ Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'
 Route::post('/add-category', [App\Http\Controllers\CategoryController::class, 'addcategory'])->name('add.category')->middleware('auth');
 Route::put('/update-category/{id}', [App\Http\Controllers\CategoryController::class, 'updateCategory'])->name('update.category')->middleware('auth');
 Route::delete('/delete-category/{id}', [App\Http\Controllers\CategoryController::class, 'deleteCategory'])->name('delete.category')->middleware('auth');
+
+//transaction
+Route::get('/pending', [App\Http\Controllers\TransactionController::class, 'pending'])->name('transaction.pending')->middleware('auth');
+Route::get('/lunas', [App\Http\Controllers\TransactionController::class, 'lunas'])->name('transaction.lunas')->middleware('auth');
+Route::get('/dikirim', [App\Http\Controllers\TransactionController::class, 'dikirim'])->name('transaction.dikirim')->middleware('auth');
+Route::put('/pending-edit', [App\Http\Controllers\TransactionController::class, 'EditPending'])->name('edit.pending')->middleware('auth');
+Route::put('/lunas-edit', [App\Http\Controllers\TransactionController::class, 'EditLunas'])->name('edit.lunas')->middleware('auth');
 
 
 

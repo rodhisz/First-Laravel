@@ -66,8 +66,10 @@
                                 <td>
                                     @if ($or->status == 1)
                                         <span class="badge bg-warning"><i class="fas fa-history me-2"></i>Pending</span>
-                                    @else
+                                    @elseif ($or->status == 2)
                                         <span class="badge bg-success"><i class="fas fa-check me-2"></i>Lunas</span>
+                                    @else
+                                        <span class="badge bg-info"><i class="fas fa-check me-2"></i>Dikirim</span>
                                     @endif
                                 </td>
                                 <td><strong>Rp. {{number_format($or->total_price + $or->unique_code)}}</strong></td>

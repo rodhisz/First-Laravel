@@ -179,7 +179,7 @@ class LandingController extends Controller
     {
         $i = 1;
         //Nyari user yang punya pesanan berdasarkan ID
-        $order = Order::where('user_id', Auth::user()->id)->where('status', 1, 2)->get();
+        $order = Order::where('user_id', Auth::user()->id)->where('status', '!=', 0)->get();
         if ($order)
         {
             $order = Order::where('user_id', Auth::user()->id)->get();

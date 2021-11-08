@@ -95,14 +95,24 @@
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#pesanan">
                         <i class="fas fa-wallet"></i>
-                        <p>Transaksi</p>
+                        <p>Transaction</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse" id="pesanan">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="#">
-                                    <span class="sub-item">Pesanan</span>
+                                <a href="{{route('transaction.pending')}}">
+                                    <span class="sub-item">Pending</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('transaction.lunas')}}">
+                                    <span class="sub-item">Lunas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('transaction.dikirim')}}">
+                                    <span class="sub-item">dikirim</span>
                                 </a>
                             </li>
                         </ul>
@@ -112,14 +122,14 @@
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#pesanan">
                         <i class="fas fa-wallet"></i>
-                        <p>Transaksi</p>
+                        <p>Transaction</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse" id="pesanan">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="#">
-                                    <span class="sub-item">Pesanan</span>
+                                <a href="{{route('transaction.pending')}}">
+                                    <span class="sub-item">Pending</span>
                                 </a>
                             </li>
                         </ul>
